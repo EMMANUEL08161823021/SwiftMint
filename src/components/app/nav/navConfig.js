@@ -1,0 +1,56 @@
+// navConfig.js
+import {
+  DASHBOARD,
+  CUSTOMER_REQUESTS,
+  PRODUCTS,
+  COMPANIES,
+  LICENSES,
+  AGENT_DIRECTORY,
+  SUBSCRIBERS,
+  TEAM_DIRECTORY,
+  MY_SETTINGS,
+  NOTIFICATIONS,
+  TRANSLATIONS,
+} from '@/routes/routes';
+
+import {
+  LayoutDashboard,
+  Inbox,
+  ShoppingCart,
+  Building2,
+  BadgeCheck,
+  Headset,
+  Globe,
+  Users,
+  Settings,
+  Bell,
+} from 'lucide-react';
+
+export const navConfig = [
+  { href: `/${DASHBOARD}`, text: 'Dashboard', icon: LayoutDashboard },
+  { href: `/${CUSTOMER_REQUESTS}`, text: 'Customer Requests', icon: Inbox },
+  { href: `/${PRODUCTS}`, text: 'Products', icon: ShoppingCart },
+  { href: `/${COMPANIES}`, text: 'Companies', icon: Building2 },
+  { href: `/${LICENSES}`, text: 'Licenses', icon: BadgeCheck },
+  { href: `/${AGENT_DIRECTORY}`, text: 'Agent Directory', icon: Headset },
+  { href: `/${SUBSCRIBERS}`, text: 'Subscribers', icon: Users },
+  { href: `/${TRANSLATIONS}`, text: 'Translations', icon: Globe },
+];
+
+export const footerConfig = [
+  {
+    href: `/${TEAM_DIRECTORY}`,
+    text: 'Team Directory',
+    icon: Users,
+  },
+  {
+    href: `/${MY_SETTINGS}`,
+    text: 'Settings',
+    icon: Settings,
+  },
+  {
+    href: `/${NOTIFICATIONS}`,
+    text: 'Notifications',
+    icon: Bell,
+  },
+];
