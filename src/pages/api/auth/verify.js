@@ -2,36 +2,43 @@
 import nacl from "tweetnacl";
 import bs58 from "bs58";
 
+// Same in-memory store (dev only)
 const NONCE_STORE = global.__NONCE_STORE ||= new Map();
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") return res.status(405).end();
+  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
-  const { pubkey, signature, nonce } = req.body;
-  if (!pubkey || !signature || !nonce) return res.status(400).send("missing fields");
+  const { pubkey, signature, nonce } = req.body || {};
+  if (!pubkey || !signature || !nonce) {
+    return res.status(400).json({ error: "missing fields" });
+  }
 
-  // validate nonce exists
-  if (!NONCE_STORE.has(nonce)) return res.status(400).send("invalid or expired nonce");
+  const entry = NONCE_STORE.get(pubkey);
+  if (!entry || entry.nonce !== nonce) {
+    return res.status(400).json({ error: "invalid or expired nonce" });
+  }
 
-  // reconstruct message exactly as the client signed
+  // Reconstruct message exactly as the client signed
   const msg = `Sign in to EdgeMetrics\nnonce: ${nonce}`;
   const msgBytes = new TextEncoder().encode(msg);
 
   try {
+    // normalize signature
     const sigUint8 = Uint8Array.from(signature);
-    const pubkeyUint8 = bs58.decode(pubkey); // public key is base58
+    const pubkeyUint8 = bs58.decode(pubkey);
+
     const verified = nacl.sign.detached.verify(msgBytes, sigUint8, pubkeyUint8);
 
-    if (!verified) return res.status(401).send("signature verification failed");
+    if (!verified) return res.status(401).json({ error: "signature verification failed" });
 
-    // verification succeeded -> create session / JWT here
-    // For demo we return success and delete the nonce
-    NONCE_STORE.delete(nonce);
+    // Success: consume nonce and clear timeout
+    if (entry.timeoutId) clearTimeout(entry.timeoutId);
+    NONCE_STORE.delete(pubkey);
 
-    // TODO: create your application session here (cookie or JWT)
-    res.json({ ok: true, pubkey });
+    // TODO: create a real session (set httpOnly cookie / JWT)
+    return res.status(200).json({ ok: true, pubkey });
   } catch (err) {
     console.error("verify error:", err);
-    res.status(500).send("server error");
+    return res.status(500).json({ error: "server error" });
   }
 }
