@@ -22,28 +22,28 @@ export default function DepositModal({ isOpen = false, onClose = () => {}, chain
   }, [isOpen]);
 
   // focus & ESC
-  useEffect(() => {
-    if (!isOpen) return;
-    const focusTimer = setTimeout(() => firstFocusRef.current?.focus(), 80);
-    function onKey(e) {
-      if (e.key === "Escape") onClose();
-    }
-    window.addEventListener("keydown", onKey);
-    return () => {
-      clearTimeout(focusTimer);
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [isOpen, onClose]);
+     useEffect(() => {
+          if (!isOpen) return;
+          const focusTimer = setTimeout(() => firstFocusRef.current?.focus(), 80);
+          function onKey(e) {
+               if (e.key === "Escape") onClose();
+          }
+          window.addEventListener("keydown", onKey);
+          return () => {
+               clearTimeout(focusTimer);
+               window.removeEventListener("keydown", onKey);
+          };
+     }, [isOpen, onClose]);
 
-  async function handleCopy() {
-    try {
-      await navigator.clipboard.writeText(address || "");
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1400);
-    } catch (err) {
-      console.error("copy failed", err);
-    }
-  }
+     async function handleCopy() {
+          try {
+               await navigator.clipboard.writeText(address || "");
+               setCopied(true);
+               setTimeout(() => setCopied(false), 1400);
+          } catch (err) {
+               console.error("copy failed", err);
+          }
+     }
 
   return (
     <AnimatePresence>

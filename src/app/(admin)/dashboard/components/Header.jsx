@@ -13,7 +13,7 @@ export default function Header({ chain = "SOL", onOpenDeposit = () => {} }) {
       <div className="mx-auto flex h-16 max-w-[1400px] items-center gap-6 px-6">
         {/* Logo */}
         <div className="flex cursor-pointer items-center gap-2" onClick={() => router.push("/")}>
-          <span className="text-lg font-semibold tracking-wide text-white">EdgeMetrics</span>
+          <span className="text-lg font-semibold tracking-wide text-white">SwiftMint</span>
         </div>
 
         {/* Navigation */}

@@ -140,7 +140,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Controlled AddLoginForm — pass isOpen & onClose */}
       <AddLoginForm isOpen={showLogin} onClose={() => setShowLogin(false)} />
     </header>
   );
