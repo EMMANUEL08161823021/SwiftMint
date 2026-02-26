@@ -11,7 +11,7 @@ import {
   MY_SETTINGS,
   NOTIFICATIONS,
   TRANSLATIONS,
-} from '@/routes/routes';
+} from '../routes/routes';
 
 import {
   LayoutDashboard,

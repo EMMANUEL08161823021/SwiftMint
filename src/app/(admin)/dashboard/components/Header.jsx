@@ -9,8 +9,8 @@ export default function Header({ chain = "SOL", onOpenDeposit = () => {} }) {
   const [openChainMenu, setOpenChainMenu] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/80 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-[1400px] items-center gap-6 px-6">
+    <header className="sticky top-0 z-50 w-full h-16 border-b border-white/10 bg-black/80 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-full items-center gap-6 px-6">
         {/* Logo */}
         <div className="flex cursor-pointer items-center gap-2" onClick={() => router.push("/")}>
           <span className="text-lg font-semibold tracking-wide text-white">SwiftMint</span>

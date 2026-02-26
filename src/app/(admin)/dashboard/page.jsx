@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Dashboard from "./components/Dashboard";
 import DepositModal from "./dialogs/DepositModal";
 import Header from "./components/Header";
+import Sidebar from "../../components/Sidebar";
 
 export default function DashboardPage() {
   // central state
@@ -18,7 +19,8 @@ export default function DashboardPage() {
       <Header chain={chain} onOpenDeposit={() => setDepositOpen(true)} />
 
       {/* Page content */}
-      <main>
+      <main className="flex w-full">
+        <Sidebar/>
         <Dashboard />
       </main>
 

@@ -14,7 +14,7 @@ export default function SidebarClient() {
   };
 
   return (
-    <nav className="flex flex-col gap-3 p-4 w-[220px]">
+    <nav className="flex flex-col gap-3 p-4 w-full">
       {navConfig.map((item) => (
         <NavItem
           key={item.href}
